@@ -12,7 +12,7 @@
 (function() {
     'use strict';
 
-    // List of task groups (copy from your Python script)
+    // List of task groups to assign
     const taskGroups = [
         "AAGUK Bulk Replenishment Task Group",
         "AAGUK DG Bulk Replenishment Task Group",
