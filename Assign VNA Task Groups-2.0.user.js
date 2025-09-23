@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Assign VNA Task Groups
 // @namespace    https://github.com/RyanHepplestone/SC_Scripts
-// @version      2.5
+// @version      2.6
 // @description  Assigns all task groups to a list of usernames via API using current session cookies
 // @match        *aagprod.sce.manh.com/udc/dm/screen/task/UserTaskGroupEligibility
 // @match        *aagprod.sce.manh.com/udc/dm/screen/organization/user
+// @match        *aagprod.sce.manh.com/udc/dm-config/screen/lmcore/EmployeeStatus
 // @grant        GM_addStyle
 // @updateURL    https://raw.githubusercontent.com/RyanHepplestone/SC_Scripts/main/Assign%20VNA%20Task%20Groups-2.0.user.js
 // @downloadURL  https://raw.githubusercontent.com/RyanHepplestone/SC_Scripts/main/Assign%20VNA%20Task%20Groups-2.0.user.js

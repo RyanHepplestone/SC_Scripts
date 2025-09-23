@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         Bulk Assign Task Groups to Users
 // @namespace    https://github.com/RyanHepplestone/SC_Scripts
-// @version      2.2
+// @version      2.3
 // @description  Assigns all task groups to a list of usernames via API using current session cookies
 // @author       TB
 // @match        *aagprod.sce.manh.com/udc/dm/screen/task/UserTaskGroupEligibility
 // @match        *aagprod.sce.manh.com/udc/dm/screen/organization/user
+// @match        *aagprod.sce.manh.com/udc/dm-config/screen/lmcore/EmployeeStatus
 // @grant        GM_addStyle
 // @updateURL    https://raw.githubusercontent.com/RyanHepplestone/SC_Scripts/main/Bulk%20Assign%20Task%20Groups%20to%20Users-2.0.user.js
 // @downloadURL  https://raw.githubusercontent.com/RyanHepplestone/SC_Scripts/main/Bulk%20Assign%20Task%20Groups%20to%20Users-2.0.user.js
