@@ -1,157 +1,29 @@
 // ==UserScript==
-// @name         Bulk Assign Task Groups to Users
+// @name         Assign EXTRA VNA Task Groups
 // @namespace    https://github.com/RyanHepplestone/SC_Scripts
-// @version      2.2
+// @version      2.5
 // @description  Assigns all task groups to a list of usernames via API using current session cookies
-// @author       TB
 // @match        *aagprod.sce.manh.com/udc/dm/screen/task/UserTaskGroupEligibility
 // @match        *aagprod.sce.manh.com/udc/dm/screen/organization/user
 // @grant        GM_addStyle
-// @updateURL    https://raw.githubusercontent.com/RyanHepplestone/SC_Scripts/main/Bulk%20Assign%20Task%20Groups%20to%20Users-2.0.user.js
-// @downloadURL  https://raw.githubusercontent.com/RyanHepplestone/SC_Scripts/main/Bulk%20Assign%20Task%20Groups%20to%20Users-2.0.user.js
+// @updateURL    https://raw.githubusercontent.com/RyanHepplestone/SC_Scripts/main/Assign%20VNA%20Task%20Groups-2.1.user.js
+// @downloadURL  https://raw.githubusercontent.com/RyanHepplestone/SC_Scripts/main/Assign%20VNA%20Task%20Groups-2.1.user.js
 // ==/UserScript==
 
 (function() {
     'use strict';
 
-    // List of task groups (copy from your Python script)
+    // List of task groups to assign
     const taskGroups = [
-        "AAG Bulk Pick Task Group",
-        "AAGUK Awkward CO RTH Task Group",
-        "AAGUK Awkward Pick Pack Big Order",
-        "AAGUK Awkward Pick Pack CO-IO-NR",
-        "AAGUK Awkward RDC Replen",
-        "AAGUK Awkward Work Orders",
-        "AAGUK Bulk Pick CO RTH Task Group",
-        "AAGUK Bulk Pick E-Ful Remote",
-        "AAGUK Bulk Pick Pack Big Order",
-        "AAGUK Bulk Pick Pack CO-IO-NR",
-        "AAGUK Bulk Pick Pick National Retailers",
-        "AAGUK Bulk Pick Pick Pack Big Order",
-        "AAGUK Bulk Pick Pick Pack CO-IO-NR",
-        "AAGUK Bulk Pick Pick to Pallet",
-        "AAGUK Bulk Pick RDC Replen",
-        "AAGUK Bulk Pick Work Orders",
-        "AAGUK Bulk Priority Replenishment Task Group",
-        "AAGUK Bulk RDC Replen",
-        "AAGUK Bulk Replenishment Task Group",
-        "AAGUK Bulk Replenishment To Exotec",
-        "AAGUK Bulk Work Orders",
-        "AAGUK Consumables Picking",
-        "AAGUK Dangerous Goods CO RTH Task Group",
-        "AAGUK Dangerous Goods National Retailers",
-        "AAGUK Dangerous Goods Pick to Pallet",
-        "AAGUK DG Bulk Pick Pack Big Order",
-        "AAGUK DG Bulk Pick Pack CO-IO-NR",
-        "AAGUK DG Bulk Priority Replenishment Task Group",
-        "AAGUK DG Bulk RDC Replen",
-        "AAGUK DG Bulk Replenishment Task Group",
-        "AAGUK DG Bulk Replenishment To Exotec",
-        "AAGUK DG Bulk Work Orders",
-        "AAGUK DG E-Ful Remote",
-        "AAGUK DG Pick Pack Big Order",
-        "AAGUK DG Pick Pack CO-IO-NR",
-        "AAGUK DG RDC Replen",
-        "AAGUK DG Work Orders",
-        "AAGUK East Bulk Pick CO RTH Task Group",
-        "AAGUK East Bulk Pick E-Ful Remote",
-        "AAGUK East Bulk Pick Pick National Retailers",
-        "AAGUK East Bulk Pick Pick Pack Big Order",
-        "AAGUK East Bulk Pick Pick Pack CO-IO-NR",
-        "AAGUK East Bulk Pick Pick to Pallet",
-        "AAGUK East Bulk Pick RDC Replen",
-        "AAGUK East VB Bulk CO RTH Pick Task Group",
-        "AAGUK East VB Bulk E-Ful Pick Task Group",
-        "AAGUK East VB Bulk Pick Task Group",
-        "AAGUK Inbound Priority Task Group",
-        "AAGUK LPN Disposition",
-        "AAGUK Mezz First CO RTH Task Group",
-        "AAGUK Mezz First E-Ful Remote",
-        "AAGUK Mezz First E-Fulfilment & Remote",
-        "AAGUK Mezz First National Retailers",
-        "AAGUK Mezz First Pick Pack Big Order",
-        "AAGUK Mezz First Pick Pack CO-IO-NR",
-        "AAGUK Mezz First Pick to Pallet",
-        "AAGUK Mezz First RDC Replen",
-        "AAGUK Mezz First Work Orders",
-        "AAGUK Mezz Second CO RTH Task Group",
-        "AAGUK Mezz Second E-Ful Remote",
-        "AAGUK Mezz Second E-Fulfilment and Customer Orders",
-        "AAGUK Mezz Second National Retailers",
-        "AAGUK Mezz Second Pick Pack Big Order",
-        "AAGUK Mezz Second Pick Pack CO-IO-NR",
-        "AAGUK Mezz Second Pick to Pallet",
-        "AAGUK Mezz Second RDC Replen",
-        "AAGUK Mezz Second Single Line Orders",
-        "AAGUK Mezz Second Work Orders",
-        "AAGUK MF Zone Picking",
-        "AAGUK OS NAT Task Group",
-        "AAGUK OS Pick to Pallet",
-        "AAGUK Outbound Putaway",
-        "AAGUK Outside Priority Replenishment Task Group",
-        "AAGUK Outside Replenishment Task Group",
-        "AAGUK Outside Replenishment To Exotec",
-        "AAGUK Oversize Pick Task Group",
-        "AAGUK Oversized Bulk Pick Pack CO-IO-NR",
-        "AAGUK Oversized Bulk RDC Replen",
-        "AAGUK Oversized Bulk Work Orders",
-        "AAGUK Oversized CO RTH Task Group",
-        "AAGUK Oversized E-Ful Remote",
-        "AAGUK Oversized National Retailers",
-        "AAGUK Oversized Pick Pack Big Order",
-        "AAGUK Oversized Pick Pack CO-IO-NR",
-        "AAGUK Oversized RDC Replen",
-        "AAGUK Oversized Work Orders",
-        "AAGUK Putaway",
-        "AAGUK Putaway Holding",
-        "AAGUK Recall Task Group",
-        "AAGUK RL (all zones) Task Group",
-        "AAGUK RL OC Pick Task Group",
-        "AAGUK RL Suppl Cleanse Awk Task Group",
-        "AAGUK RL Suppl Cleanse Awkward Bulk Task Group",
-        "AAGUK RL Suppl Cleanse Bulk Task Group",
-        "AAGUK RL Suppl Cleanse DG Bulk Bulk Task Group",
-        "AAGUK RL Suppl Cleanse DG Bulk Task Group",
-        "AAGUK RL Suppl Cleanse Mezz First Task Group",
-        "AAGUK RL Suppl Cleanse Mezz Second Task Group",
-        "AAGUK RL Suppl Cleanse TEMP Task Group",
-        "AAGUK Supplier Cleanse Bulk Pick Task Group",
-        "AAGUK Supplier Cleanse Dangerous Goods Task Group",
-        "AAGUK Temp CO RTH Task Group",
-        "AAGUK Temp CO-IO-NR Task Group",
-        "AAGUK Temp E-Ful Remote Task Group",
-        "AAGUK Temp National Retailers Task Group",
-        "AAGUK Temp Pick Pack Big Order Task Group",
-        "AAGUK Temp Pick to Pallet",
-        "AAGUK Temp RDC Replen Task Group",
-        "AAGUK VB Bulk Pick CO RTH Task Group",
-        "AAGUK VB Bulk Pick Task Group",
-        "AAGUK VB Dangerous Goods CO RTH Task Group",
-        "AAGUK VB Dangerous Goods Task Group",
-        "AAGUK VB E-Ful Bulk Pick Task Group",
-        "AAGUK VB E-Ful Dangerous Goods Task Group",
-        "AAGUK VB E-Ful Mezz First Task Group",
-        "AAGUK VB E-Ful Mezz Second Task Group",
-        "AAGUK VB Mezz First CO RTH Task Group",
-        "AAGUK VB Mezz First Task Group",
-        "AAGUK VB Mezz Second CO RTH Task Group",
-        "AAGUK VB Mezz Second Task Group",
-        "AAGUK VB Temp CO RTH Task Group",
-        "AAGUK VB Temp CO-IO-NR Task Group",
-        "AAGUK VB Temp E-Ful Remote Task Group",
-        "AAGUK West Bulk Pick CO RTH Task Group",
-        "AAGUK West Bulk Pick E-Ful Remote",
-        "AAGUK West Bulk Pick Pick National Retailers",
-        "AAGUK West Bulk Pick Pick Pack Big Order",
-        "AAGUK West Bulk Pick Pick Pack CO-IO-NR",
-        "AAGUK West Bulk Pick Pick to Pallet",
-        "AAGUK West Bulk Pick RDC Replen",
-        "AAGUK West VB Bulk CO RTH Pick Task Group",
-        "AAGUK West VB Bulk E-Ful Pick Task Group",
-        "AAGUK West VB Bulk Pick Task Group",
-        "AAGUK Mezz Second Multi Line Orders",
-        "AAGUK Works Orders",
-        "Outbound",
+        "zAAGUK BG Exotec Standard Replenishment",
+        "zAAGUK BG Mezz First Priority Replenishment",
+        "zAAGUK BG Mezz First Standard Replenishment",
+        "zAAGUK BG Mezz Second Priority Replenishment",
+        "zAAGUK BG Mezz Second Standard Replenishment",
+        "zAAGUK BG Bulk Pick Priority Replenishment",
+        "zAAGUK BG Bulk Pick Standard Replenishment",
+        "zAAGUK BG Exotec Priority Replenishment",
+
     ];
 
     // Add popup styles
@@ -290,11 +162,11 @@
 
     // Add a button to the page to open the popup
     function addToolbarButton() {
-        if (document.getElementById('taskgroup-popup-btn')) return;
+        if (document.getElementById('vnaTaskGroup-popup-btn')) return;
         const btn = document.createElement('button');
-        btn.id = 'taskgroup-popup-btn';
-        btn.textContent = 'Normal Tasks';
-        btn.style = 'position:fixed;top:5px;right:640px;z-index:99999;padding:8px 12px;background:#690800;color:#fff;border:none;border-radius:2px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.35);transition:transform 0.15s;';
+        btn.id = 'vnaTaskGroup-popup-btn';
+        btn.textContent = 'VNA Tasks';
+        btn.style = 'position:fixed;top:5px;right:550px;z-index:99999;padding:8px 12px;background:#690800;color:#fff;border:none;border-radius:2px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.35);transition:transform 0.15s;';
         btn.onclick = function() {
             btn.style.transform = 'scale(0.8)';
             setTimeout(() => {
