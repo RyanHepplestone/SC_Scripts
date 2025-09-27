@@ -4,7 +4,7 @@
 // @version      2.7
 // @description  Assigns all task groups to a list of usernames via API using current session cookies
 // @match        https://aagprod.sce.manh.com/udc/dm/screen/task/UserTaskGroupEligibility
-// @match        https://uaafp.sce.manh.com/udc/dm/screen/organization/user
+// @match        https://aagprod.sce.manh.com/udc/dm/screen/organization/user
 // @match        https://aagprod.sce.manh.com/udc/dm-config/screen/lmcore/EmployeeStatus
 // @grant        GM_addStyle
 // @updateURL    https://raw.githubusercontent.com/RyanHepplestone/SC_Scripts/main/Assign%20VNA%20Task%20Groups-2.0.user.js
