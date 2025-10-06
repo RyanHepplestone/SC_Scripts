@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Bulk Assign Task Groups to Users
 // @namespace    https://github.com/RyanHepplestone/SC_Scripts
-// @version      2.4
+// @version      2.5
 // @description  Assigns all task groups to a list of usernames via API using current session cookies
 // @author       TB
 // @match        https://*.sce.manh.com/udc/dm/screen/task/UserTaskGroupEligibility
@@ -125,6 +125,20 @@
         "AAGUK Temp Pick Pack Big Order Task Group",
         "AAGUK Temp Pick to Pallet",
         "AAGUK Temp RDC Replen Task Group",
+        "AAGUK Temp Pick Single Line Orders",
+        "AAGUK DG B Level Pick Pack CO-IO-NR",
+        "AAGUK DG B Level E-Ful Remote",
+        "AAGUK DG B Level Work Orders",
+        "AAGUK DG B Level RDC Replen",
+        "AAGUK Supplier Cleanse DG B Level Task Group",
+        "AAGUK VB DG B Level Task Group",
+        "AAGUK VB E-Ful DG B Level Task Group",
+        "AAGUK VB DG B Level CO RTH Task Group",
+        "AAGUK DG B Level CO RTH Task Group",
+        "AAGUK DG B Level Pick Pack Big Order",
+        "AAGUK DG B Level Pick to Pallet",
+        "AAGUK DG B Level National Retailers",
+        "AAGUK DG B Level MBC Big Order",
         "AAGUK VB Bulk Pick CO RTH Task Group",
         "AAGUK VB Bulk Pick Task Group",
         "AAGUK VB Dangerous Goods CO RTH Task Group",
